@@ -6,24 +6,24 @@
 ;Representación: Ancho X Largo X [pixbit-d* |  pixrgb-d* | pixhe*]
 
 (define(imagen ancho largo .pixel)
-  lista(ancho largo .pixel))
+  list(ancho largo .pixel))
 
 ;;SELECTORES(GET)
 
 ;Selector del elemento "ancho", perteneciente al TDA imagen
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-ancho lista) (car lista))
+(define(get-ancho list) (car list))
 
 ;Selector del elemento "largo", perteneciente al TDA imagen
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-largo lista) (cadr lista))
+(define(get-largo list) (cadr list))
 
 ;Selector del elemento "pixel", perteneciente al TDA imagen
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-pixel lista) (caddr lista))
+(define(get-pixel list) (caddr list))
 
 ;;MODIFICADORES(SET)
 ;Modificaodr del largo de la imagen

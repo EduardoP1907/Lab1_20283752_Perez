@@ -5,7 +5,7 @@
 ;Representación: x (int) X y (int) X bit ([0|1]) X depth (int))
 
 (define(pixbit-d x y bit depth)
-  lista(x y bit depth))
+  list(x y bit depth))
 
 ;;SELECTORES(GET)
 
@@ -30,5 +30,12 @@
 (define(get-depth lista) (cadddr lista))
 
 ;;MODIFICADORES(SET)
+;Modificaodr del tda pixbit-d de la imagen
+;Dominio: Lista
+;Recorrido: int
 
+(define (set-valor pixel valor)
+  (pixbit-d (get-x pixel)
+            (get-y pixel)
+            valor (get-depth pixel)))
 
