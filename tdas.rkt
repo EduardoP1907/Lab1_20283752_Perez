@@ -1,5 +1,5 @@
 #lang racket
-
+(require "tdaPixbit.rkt")
 
 ;TDA imagen
 ;CONSTRUCTOR
@@ -27,37 +27,12 @@
 
 ;;PERTENENCIA
 
-(define (image?-specific-wrapper ancho largo pixelList evaluator)
-  (if (null? pixelList)
-      #t
-      (if (and [evaluator (car pixelList)] [>= ancho (car (car pixelList))] [>= largo (car (cdr (car pixelList)))])
-          (image?-specific-wrapper ancho largo (cdr pixelList) evaluator)
-          #f)))
+(define bitmap?
+  (lambda(imagen)
+    (if(andmap pixbit? (get-pixel imagen)) #t
+       #f)))
+     
 
-(define (image?-specific image evaluator)
-  (if (and (positive? (get-ancho image)) (positive? (get-largo imagen)))
-      (image?-specific-wrapper (get-ancho image) (get-largo imagen) (get-pixel imagen) evaluator)
-      #f))
-
-(define (bitmap? imagen)
-  (if (imagen?-specific imagen pixbit-d?)
-      #t
-      #f))
-
-(define (pixmap? imagen)
-  (if (imagen?-specific imagen pixrgb-d?)
-      #t
-      #f))
-
-(define (hexmap? imagen)
-  (if (imagen?-specific imagen pixhex-d?)
-      #t
-      #f))
-
-(define (imagen? imagen)
-  (if (or (bitmap? imagen) (pixmap? imagen) (hexmap? imagen))
-      #t
-      #f))
 
 
 ;;MODIFICADORES(SET)

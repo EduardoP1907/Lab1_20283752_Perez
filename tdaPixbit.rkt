@@ -1,5 +1,5 @@
 #lang racket
-(require "FuncionesEscenciales.rkt")
+
 ;TDA pixbit-d
 ;CONSTRUCTOR
 ;Representación: x (int) X y (int) X bit ([0|1]) X depth (int))
@@ -51,4 +51,6 @@
   (pixbit-d (get-x pixel)
             (get-y pixel)
             valor (get-depth pixel)))
+
+(provide (all-defined-out))
 
