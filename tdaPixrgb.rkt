@@ -71,6 +71,8 @@
             (get-b pixel)
             valor (get-d pixel)))
 
+(provide (all-defined-out))
+
 
 
 
