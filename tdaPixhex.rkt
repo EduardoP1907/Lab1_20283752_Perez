@@ -28,6 +28,25 @@
 ;Recorrido; Int
 (define(get-d list) (cadddr list))
 
+;;PERTENENCIA
+;Descripción:
+;Dominio:
+;Recorrido:
+
+(define pixhex?
+  (lambda(pixel)
+    (cond
+      [(not(equal?(length pixel)2))#f]
+      [(empty? pixel)#f]
+      [(not(equal?(length(second pixel))2))#f]
+      [(not(number?(first(first pixel))))#f]
+      [(not(number?(second(first pixel))))#f]
+      [(not(string?(first(second pixel))))#f]
+      [(not(equal?(string-length(first(second pixel)))6))#f]
+      [(not(number?(second(second pixel))))#f]
+      [else #t])))
+
+
 
 ;;MODIFICADORES(SET)
 ;Modificador del tda pixhex-d de la imagen
@@ -39,6 +58,8 @@
             (get-y pixel)
             (get-hex pixel)
             valor (get-d pixel)))
+
+(provide (all-defined-out))
 
 
 

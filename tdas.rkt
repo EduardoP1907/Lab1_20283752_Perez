@@ -1,5 +1,7 @@
 #lang racket
 (require "tdaPixbit.rkt")
+(require "tdaPixrgb.rkt")
+(require "tdaPixhex.rkt")
 
 ;TDA imagen
 ;CONSTRUCTOR
