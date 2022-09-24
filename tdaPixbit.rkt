@@ -30,6 +30,9 @@
 (define(get-depth lista) (cadddr lista))
 
 ;PERTENENCIA
+;;Descripcion: Comprueba que el pixel ingresado sea pixbit
+;;Dominio: Pixel
+;;Recorrido: Booleano
 (define pixbit?
   (lambda(pixel)
     (cond

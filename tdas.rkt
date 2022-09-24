@@ -31,7 +31,11 @@
   (lambda(imagen)
     (if(andmap pixbit? (get-pixel imagen)) #t
        #f)))
-     
+
+(define pixmap?
+  (lambda(imagen)
+    (if(andmap pixrgb?(get-pixel imagen)) #t
+       #f)))
 
 
 
