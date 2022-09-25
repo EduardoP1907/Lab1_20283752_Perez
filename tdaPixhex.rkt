@@ -11,12 +11,12 @@
 ;Selector del elemento "x", perteneciente al TDA pixhex-d
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-x list) (car list))
+(define(get-xHEX list) (car list))
 
 ;Selector del elemento "y", perteneciente al TDA pixhex-d
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-y list) (cadr list))
+(define(get-yHEX list) (cadr list))
 
 ;Selector del elemento "hex", perteneciente al TDA pixhex-d
 ;Dominio; Lista
@@ -26,7 +26,7 @@
 ;Selector del elemento "d", perteneciente al TDA pixhex-d
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-d list) (cadddr list))
+(define(get-dHEX list) (cadddr list))
 
 ;;PERTENENCIA
 ;Descripción:
@@ -53,13 +53,20 @@
 ;Dominio: Lista
 ;Recorrido: int|string
 
-(define (set-valor pixel valor)
-  (pixhex-d (get-x pixel)
-            (get-y pixel)
-            (get-hex pixel)
-            valor (get-d pixel)))
+(define (set-valorxHEX pixel valor)
+  (pixhex-d valor (get-yHEX pixel) (get-hex pixel) (get-dHEX pixel)))
+
+(define (set-valoryHEX pixel valor)
+  (pixhex-d (get-xHEX) valor (get-hex pixel) (get-dHEX pixel)))
+
+(define (set-valorHEX pixel valor)
+  (pixhex-d (get-xHEX) (get-yHEX) valor (get-dHEX pixel)))
+
+(define (set-valordHEX pixel valor)
+  (pixhex-d (get-xHEX) (get-yHEX) (get-hex pixel) valor))
 
 (provide (all-defined-out))
+
 
 
 

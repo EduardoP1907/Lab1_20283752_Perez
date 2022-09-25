@@ -12,12 +12,12 @@
 ;Selector del elemento "x", perteneciente al TDA pixbit
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-x lista) (car lista))
+(define(get-xBIT lista) (car lista))
 
 ;Selector del elemento "y", perteneciente al TDA pixbit
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-y lista) (cadr lista))
+(define(get-yBIT lista) (cadr lista))
 
 ;Selector del elemento "bit", perteneciente al TDA pixbit
 ;Dominio; Lista
@@ -50,10 +50,18 @@
 ;Dominio: Lista
 ;Recorrido: int
 
-(define (set-valor pixel valor)
-  (pixbit-d (get-x pixel)
-            (get-y pixel)
-            valor (get-depth pixel)))
+(define (set-valorxBIT pixel valor)
+  (pixbit-d valor (get-yBIT pixel)(get-bit pixel)(get-depth pixel)))
+
+(define (set-valoryBIT pixel valor)
+  (pixbit-d (get-xBIT pixel) valor (get-bit pixel)(get-depth pixel)))
+           
+(define (set-valorBIT pixel valor)
+  (pixbit-d (get-xBIT pixel) (get-yBIT pixel)valor (get-depth pixel)))
+
+(define (set-valorDEPTH pixel valor)
+  (pixbit-d (get-xBIT pixel) (get-yBIT pixel)(get-bit pixel) valor))
+
 
 (provide (all-defined-out))
 

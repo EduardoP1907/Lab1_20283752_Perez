@@ -11,12 +11,12 @@
 ;Selector del elemento "x", perteneciente al TDA pixrgb
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-x list) (car list))
+(define(get-xRGB list) (car list))
 
 ;Selector del elemento "y", perteneciente al TDA pixrgb
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-y list) (cadr list))
+(define(get-yRGB list) (cadr list))
 
 ;Selector del elemento "r", perteneciente al TDA pixrgb
 ;Dominio; Lista
@@ -36,7 +36,7 @@
 ;Selector del elemento "d", perteneciente al TDA pixrgb
 ;Dominio; Lista
 ;Recorrido; Int
-(define(get-d lista) car(car(cadddr lista)))
+(define(get-dRGB lista) (car(car(cadddr lista))))
 
 ;PERTEENNCIA
 ;;Descripcion: Comprueba que el pixel ingresado sea pixbit
@@ -63,13 +63,26 @@
 ;Dominio: Lista
 ;Recorrido: int
 
-(define (set-valor pixel valor)
-  (pixrgb-d (get-x pixel)
-            (get-y pixel)
-            (get-r pixel)
-            (get-g pixel)
-            (get-b pixel)
-            valor (get-d pixel)))
+(define (set-valorxRGB pixel valor)
+  (pixrgb-d valor (get-yRGB pixel) (get-r pixel) (get-g pixel) (get-b pixel) (get-dRGB pixel)))
+ 
+(define (set-valoryRGB pixel valor)
+  (pixrgb-d (get-xRGB pixel) valor (get-r pixel) (get-g pixel) (get-b pixel) (get-dRGB pixel)))
+ 
+(define (set-valorR pixel valor)
+  (pixrgb-d (get-xRGB pixel) (get-yRGB pixel) valor (get-g pixel) (get-b pixel) (get-dRGB pixel)))
+
+(define(set-valorG pixel valor)
+  (pixrgb-d (get-xRGB pixel) (get-yRGB pixel) (get-r pixel) valor (get-b pixel) (get-dRGB pixel)))
+
+(define(set-valorB pixel valor)
+  (pixrgb-d (get-xRGB pixel) (get-yRGB pixel) (get-r pixel) (get-g pixel) valor (get-dRGB pixel)))
+
+(define(set-valorDrgb pixel valor)
+  (pixrgb-d (get-xRGB pixel) (get-yRGB pixel) (get-r pixel) (get-g pixel) (get-b pixel) valor))
+
+
+
 
 (provide (all-defined-out))
 
