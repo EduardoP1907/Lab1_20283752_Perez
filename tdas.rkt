@@ -119,3 +119,32 @@
         [else #f])
       #f))
 
+;;Modificador que permite transformar una imagen desde una representación RGB a una representación HEX
+;Dominio: imagen 
+;Recorrido: imagen
+
+(define (intTocharHex x)
+  (let ([letters (list #\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9 #\A #\B #\C #\D #\E #\F)])
+    (if (and (= 0 (remainder x 16)) (= 0 (quotient x 16)))
+        '()
+        (append (intTocharHex (quotient x 16)) (list (value letters (remainder x 16)))))))
+
+(define (charHexFiller x desiredLength)
+  (if (and (not (= (length x) desiredLength)) (> desiredLength (length x)))
+      (append '(#\0) (charHexFiller x (- desiredLength 1) ))
+      x))
+
+(define (pixelRGB-To-pixelHex p)
+  (pixhex-d [set-valorxRGB p] [set-valoryRGB p] (list->string [append (charHexFiller (intTocharHex (set-valorR p)) 2)
+                                                                      (charHexFiller (intTocharHex (set-valorG p)) 2)
+                                                                      (charHexFiller (intTocharHex (set-valorB p)) 2)]) [set-valorDrgb p]))
+
+(define (pixListRGB-To-pixListHex pList)
+  (if (null? (cdr pList))
+      (pixelRGB-To-pixelHex (car pList))
+      (list (pixelRGB-To-pixelHex (car pList)) (pixelRGB-To-pixelHex (cdr pList)))))
+      
+(define (imgRGB-To-imgHex imagen)
+  (if (pixmap? imagen)
+      (list (imagen imagen) (get-ancho imagen) (pixListRGB-To-pixListHex (get-pixel imagen)))
+      #f))
