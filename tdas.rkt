@@ -44,6 +44,10 @@
     (if(andmap pixhex?(get-pixel imagen)) #t
        #f)))
 
+(define (imagen? imagen)
+  (if (or (bitmap? imagen) (pixmap? imagen) (hexmap? imagen))#t
+      #f))
+
 
 ;;MODIFICADORES(SET)
 ;Modificaodr del largo de la imagen
@@ -93,7 +97,7 @@
          (get-pixel mi-imagen)))
 
 
-;;Modificador que permite recortar una imágen a partir de un cuadrante
+;;Modificador que permite recortar una imágen a partir de un cuadrante(Crop)
 ;Dominio: image X x1 (int) X y1 (int) X x2 (int) X y2 (int)
 ;Recorrido: imagen
 (define (RangoPixel? pixel xMin yMin xMax yMax)
@@ -119,7 +123,7 @@
         [else #f])
       #f))
 
-;;Modificador que permite transformar una imagen desde una representación RGB a una representación HEX
+;;Modificador que permite transformar una imagen desde una representación RGB a una representación HEX(INT to Char)
 ;Dominio: imagen 
 ;Recorrido: imagen
 
@@ -148,3 +152,68 @@
   (if (pixmap? imagen)
       (list (imagen imagen) (get-ancho imagen) (pixListRGB-To-pixListHex (get-pixel imagen)))
       #f))
+
+
+
+
+
+
+
+;;AQUI VA UN HISTOGRAMA
+
+
+
+
+
+
+
+
+
+
+
+
+;;Modificador que permite rotar la imágen 90° a la derecha.(ROTATE 90)
+;Dominio: imagen
+;Recorrido: imagen
+
+(define (flipXYpixel pixel)
+  (cond
+    [(pixbit? pixel) (list (get-yBIT pixel) (get-xBIT pixel) (get-bit pixel) (get-depth pixel))]
+    [(pixhex? pixel) (list (get-yHEX pixel) (get-xHEX pixel) (get-hex pixel) (get-dHEX pixel))]
+    [(pixrgb? pixel) (list (get-yRGB pixel) (get-xRGB pixel) (get-r) (get-g pixel) (get-b pixel) (get-dRGB pixel))]
+    [else #f]))
+
+(define (flipXYimage imagen)
+  (list (get-largo imagen) (get-ancho imagen) (map flipXYpixel (get-pixel imagen))))
+
+(define (rotate90 imagen)
+  (if (imagen? imagen)
+      (flipH (flipXYimage imagen))
+      #f))
+
+;;Modificador que permite aplicar funciones especiales a las imágenes. Por ejemplo, para modificar colores en alguno de los canales, pasar a blanco y negro, etc.(EDIT)
+;Dominio: f X imagen
+;recorrido: imagen
+(define (edit f imagen)
+  (if (imagen? imagen)
+      (list (get-ancho imagen) (get-largo) (map f (get-pixel imagen)))
+      #f))
+
+;;Modificador que permite obtener el valor del bit opuesto.
+;Dominio: pixbit-d
+;Recorrido: pixbit-d
+
+(define (invertColorBit pixbit-d)
+  (if (pixbit? pixbit-d)
+      (cond
+        [(= 1 (get-bit pixbit-d)) (set-valorBIT pixbit-d 0)]
+        [(= 0 (get-bit pixbit-d)) (set-valorBIT pixbit-d 1)])
+      pixbit-d))
+
+;;Modificasdor que permite obtener el color simétricamente opuesto en cada canal dentro de un pixel.
+;Dominio: pixrgb-d
+;Recorrido: pixrgb-d
+
+(define (invertColorRGB pixrgb-d)
+  (if(pixrgb? pixrgb-d) #t
+      (list (get-xRGB pixrgb-d) (get-yRGB pixrgb-d) [- 255 (get-r pixrgb-d)] [- 255 (get-g pixrgb-d)] [- 255 (get-b pixrgb-d)] (get-dRGB pixrgb-d))))
