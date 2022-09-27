@@ -159,18 +159,24 @@
 
 
 
-;;AQUI VA UN HISTOGRAMA
+;;Modificador Histograma
+;Dominio: image
+;Recorrido: histograma
 
+(define histograma
+  (lambda(imagen)
+    (cond
+      [(bitmap? imagen)(histobit imagen 0)]
+      [(pixmap? imagen)(histobit imagen empty)]
+      [(hexmap? imagen)(histobit imagen empty)]
+      [else "ingrese un mapa válido"])))
 
-
-
-
-
-
-
-
-
-
+(define histogramaBit
+  (lambda(imagen contador)
+    (cond
+      [(empty (second imagen))(if(<(*(get-largo imagen)(get-ancho))contador) 0 1)]
+      [(not(equal? 0(get-bit(first(second imagen)))))(histogramaBit(list(first imagen)(rest(second imagen)))(+ 1 contador))]
+      [else(histogramaBit(list(first imagen)(rest(second)))contador)])))
 
 ;;Modificador que permite rotar la imágen 90° a la derecha.(ROTATE 90)
 ;Dominio: imagen
